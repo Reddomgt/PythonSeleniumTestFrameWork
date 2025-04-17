@@ -28,20 +28,14 @@ class TestOne(BaseClass):
         The path to the ChromeDriver is fetched from the environment variable 'CHROMEDRIVER_PATH', which allows flexibility in specifying the path based on the user's system configuration.
 
         Usage:
-        - This script is useful for automating shopping cart interactions, form submissions, and verifying success messages in a web application.
+        - This test is useful for automating shopping cart interactions, form submissions, and verifying success messages in a web application.
         """
-        # ********************This is not needed because setup is already defined in conftest.py
-        # # Get the path to the ChromeDriver from environment variables
-        # chromedriver_path = os.getenv('CHROMEDRIVER_PATH')  # Retrieve the ChromeDriver path from the environment variable
-
-        # # Initialize the Chrome driver with the specified service
-        # service_obj = Service(chromedriver_path)  # Create a Service object with the ChromeDriver path
-        # driver = webdriver.Chrome(service=service_obj)  # Initialize the Chrome WebDriver with the service object
 
         # Global max wait time for all elements
         self.driver.implicitly_wait(15)  # Set an implicit wait time of 15 seconds for all elements
 
         homePage = HomePage(self.driver)
+        homePage.shopItems().click()  # Click on the 'shop' link using the HomePage object
 
         # Find the element using CSS selector and click on the "Shop" link
         self.driver.find_element(By.CSS_SELECTOR, "a[href='/angularpractice/shop']").click()  # Click on the 'shop' link
