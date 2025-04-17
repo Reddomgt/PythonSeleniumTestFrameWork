@@ -1,0 +1,35 @@
+# macOS system files
+.DS_Store
+
+# Python virtual environment
+venv/
+.env
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Pipenv files
+Pipfile
+Pipfile.lock
+
+# VS Code settings
+.vscode/
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Test coverage reports
+.coverage
+htmlcov/
+*.cover
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Other unnecessary files
+*.swp
+*.swo
