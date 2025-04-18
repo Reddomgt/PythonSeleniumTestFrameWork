@@ -10,6 +10,7 @@ class ConfirmPage:
     dropdownIndia = (By.LINK_TEXT,"India")  #self.driver.find_element(By.LINK_TEXT, "India").click()  # Click on the 'India' link
     checkbox = (By.XPATH,"//div[@class='checkbox checkbox-primary']")    #self.driver.find_element(By.XPATH, "//div[@class='checkbox checkbox-primary']").click()
     purchaseBtn = (By.XPATH, "//input[@class='btn btn-success btn-lg']") #self.driver.find_element(By.XPATH, "//input[@class='btn btn-success btn-lg']").click()
+    success = (By.CLASS_NAME,"alert-success")
 
     def getDeliveryLocation(self):
         return self.driver.find_element(*ConfirmPage.deliveryLocation)
@@ -24,6 +25,9 @@ class ConfirmPage:
     
     def getPurchaseButton(self):
         return self.driver.find_element(*ConfirmPage.purchaseBtn)
+    
+    def getSuccessMessage(self):
+        return self.driver.find_element(*ConfirmPage.success)
 
 
     
