@@ -20,14 +20,16 @@ class TestOne(BaseClass):
 
         1. Navigating to the specified URL.
         2. Interacting with elements such as buttons, links, and input fields.
-        3. Adding a specific product (Blackberry) to the cart.
+        3. Adding a specific product (Blackberry) to the cart by iterating through product cards.
         4. Proceeding to checkout and filling out the form to complete the purchase.
-        5. Verifying the success message upon successful form submission.
+        5. Selecting the delivery location (India) from a dropdown.
+        6. Verifying the success message upon successful form submission.
 
-        The path to the ChromeDriver is fetched from the environment variable 'CHROMEDRIVER_PATH', which allows flexibility in specifying the path based on the user's system configuration.
+        The script uses the Page Object Design Pattern to organize and encapsulate webpage elements and actions, improving maintainability and reusability. The path to the ChromeDriver is fetched from the environment variable 'CHROMEDRIVER_PATH', allowing flexibility in specifying the path based on the user's system configuration.
 
         Usage:
         - This test is useful for automating shopping cart interactions, form submissions, and verifying success messages in a web application.
+        - It demonstrates the use of explicit waits, parameterized locators, and modularized test code.
         """
 
         # Set an implicit wait time of 15 seconds for all elements
