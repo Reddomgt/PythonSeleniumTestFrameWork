@@ -52,9 +52,7 @@ class TestOne(BaseClass):
                 shopPage.getCardFooter()[i].click()
 
         shopPage.shopCheckoutItems().click()  # Click the 'Checkout' button using the ShopPage object
-
-        # shopPage.checkoutItems().click()  # Click the 'Checkout' button using the CheckoutPage object
-        self.driver.find_element(By.XPATH, "//button[@class='btn btn-success']").click()
+        shopPage.cartCheckoutItems().click()  # Click the 'Cart Checkout' button using the ShopPage object
 
         # Enter "Ind" in the country input field for the country search
         self.driver.find_element(By.ID, "country").send_keys("Ind")  # Type 'Ind' in the country search field
