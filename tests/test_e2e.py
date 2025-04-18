@@ -58,19 +58,9 @@ class TestOne(BaseClass):
         confirmPage = ConfirmPage(self.driver)
         confirmPage.getDeliveryLocation().send_keys("Ind")  # Type 'Ind' in the country search field
 
-        # Enter "Ind" in the country input field for the country search
-        # self.driver.find_element(By.ID, "country").send_keys("Ind")  # Type 'Ind' in the country search field
-
-        # Wait until the element with link text "India" is present in the dropdown
-        wait = WebDriverWait(self.driver, 10)  # Wait for up to 10 seconds
-        wait.until(EC.presence_of_element_located((By.LINK_TEXT, "India")))  # Wait for the 'India' link to appear
+        confirmPage.getDropdownIndia().click()  # Click on the 'India' link
         
-        # Click on the element with link text "India" from the suggestions
-        self.driver.find_element(By.LINK_TEXT, "India").click()  # Click on the 'India' link
-        
-
-        # Click on the checkbox to agree with terms and conditions
-        self.driver.find_element(By.XPATH, "//div[@class='checkbox checkbox-primary']").click()  # Click the checkbox
+        confirmPage.getPurchaseButton().click()
 
         # Click on the submit button to complete the purchase process
         self.driver.find_element(By.CSS_SELECTOR, "input[type='submit']").click()  # Click the submit button
