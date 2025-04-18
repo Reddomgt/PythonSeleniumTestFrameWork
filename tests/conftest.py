@@ -8,12 +8,33 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 def pytest_addoption(parser):
+    """
+    Adds a custom command-line option to the pytest framework.
+
+    This function allows the user to specify the browser name to be used during testing
+    by adding a `--browser_name` option to the pytest command-line interface. If no value
+    is provided, the default browser is set to "chrome".
+
+    Args:
+        parser (pytest.Parser): The pytest parser object used to add custom command-line options.
+    """
     parser.addoption(
         "--browser_name", action="store", default="chrome"
     )
 
 @pytest.fixture(scope="class")
 def setup(request):
+    """
+    This pytest fixture sets up a WebDriver instance for browser automation based on the browser name 
+    provided via command-line options. It supports Chrome, Firefox, and Edge browsers. The corresponding 
+    driver paths are retrieved from environment variables. The fixture initializes the browser, navigates 
+    to a specified URL, and assigns the WebDriver instance to the test class. After the test execution, 
+    the browser is closed.
+    Args:
+        request: A pytest request object that provides access to the test context, including command-line options.
+    Yields:
+        None: The fixture yields control back to the test, and cleanup (browser closure) is performed after the test.
+    """
     browser_name = request.config.getoption("browser_name")  # Get the browser name from command line options
 
     if browser_name == 'chrome':
@@ -45,4 +66,6 @@ def setup(request):
 
     #Anything after yield will be executed at the end
     yield
+    
+    # Close the browser after the test execution
     driver.close()
