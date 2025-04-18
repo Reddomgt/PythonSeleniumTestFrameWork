@@ -1,5 +1,3 @@
-
-# Import necessary modules from Selenium and os       
 import os
 import time
 import pytest
@@ -14,7 +12,6 @@ from pageObjects.HomePage import HomePage
 from pageObjects.ConfirmPage import ConfirmPage
 from utilities.BaseClass import BaseClass
 
-#@pytest.mark.fixture("setup") <-- Not needed because setup is already defined in parent class BaseClass
 class TestOne(BaseClass):
 
     def test_e2e(self):
@@ -33,47 +30,55 @@ class TestOne(BaseClass):
         - This test is useful for automating shopping cart interactions, form submissions, and verifying success messages in a web application.
         """
 
-        # Global max wait time for all elements
-        self.driver.implicitly_wait(15)  # Set an implicit wait time of 15 seconds for all elements
+        # Set an implicit wait time of 15 seconds for all elements
+        self.driver.implicitly_wait(15)
 
+        # Create an instance of the HomePage object
         homePage = HomePage(self.driver)
-        homePage.shopItems().click()  # Click on the 'shop' link using the HomePage object
+        # Click on the 'shop' link on the home page
+        homePage.shopItems().click()
 
+        # Create an instance of the ShopPage object
         shopPage = ShopPage(self.driver)
-        cards = shopPage.getCardTitles()  # Get the list of product cards on the checkout page
+        # Get the list of product cards on the shop page
+        cards = shopPage.getCardTitles()
 
+        # Initialize a counter to track the index of the product card
         i = -1
-        # Iterate through the cards to find the one with the name "Blackberry"
+        # Iterate through the product cards to find the one with the name "Blackberry"
         for card in cards:
-            i = i + 1
-            # Get the name of the product on the card
-            cardText = card.text  # Extract the text from the card element
+            i = i + 1  # Increment the counter
+            # Extract the text from the current product card
+            cardText = card.text
 
-            if cardText == "Blackberry":  # Check if the card is the one with name "Blackberry"
+            # Check if the current product card matches the desired product name
+            if cardText == "Blackberry":
+                # Click the 'Add to Cart' button for the matching product
                 shopPage.getCardFooter()[i].click()
 
-        shopPage.shopCheckoutItems().click()  # Click the 'Checkout' button using the ShopPage object
-        shopPage.cartCheckoutItems().click()  # Click the 'Cart Checkout' button using the ShopPage object
+        # Click the 'Checkout' button to proceed to the cart
+        shopPage.shopCheckoutItems().click()
+        # Click the 'Cart Checkout' button to proceed to the confirmation page
+        shopPage.cartCheckoutItems().click()
 
+        # Create an instance of the ConfirmPage object
         confirmPage = ConfirmPage(self.driver)
-        confirmPage.getDeliveryLocation().send_keys("Ind")  # Type 'Ind' in the country search field
+        # Enter the delivery location by typing 'Ind' in the country search field
+        confirmPage.getDeliveryLocation().send_keys("Ind")
 
-        confirmPage.getDropdownIndia().click()  # Click on the 'India' link
-        
+        # Select 'India' from the dropdown list
+        confirmPage.getDropdownIndia().click()
+
+        # Click the checkbox to agree to the terms and conditions
         confirmPage.getCheckBox().click()
 
+        # Click the 'Purchase' button to complete the transaction
         confirmPage.getPurchaseButton().click()
 
-        # # Click on the submit button to complete the purchase process
-        # self.driver.find_element(By.CSS_SELECTOR, "input[type='submit']").click()  # Click the submit button
-
-        # Capture the success message displayed after submission
-        success_message = self.driver.find_element(By.CLASS_NAME, "alert-success").text  # Capture success message text
-        print(success_message)  # Print the success message to the console
+        # Capture the success message displayed after the purchase
+        success_message = confirmPage.getSuccessMessage().text
+        # Print the success message to the console
+        print(success_message)
 
         # Assert that the success message contains the expected text
-        assert "Success! Thank you!" in success_message  # Validate that the success message contains "Success! Thank you!"
-
-        # ********************This is not needed because setup is already defined in conftest.py
-        # # Close the browser after completion
-        # self.driver.quit()  # Close the browser and end the session
+        assert "Success! Thank you!" in success_message
