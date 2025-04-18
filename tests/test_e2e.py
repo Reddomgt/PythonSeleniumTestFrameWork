@@ -60,10 +60,12 @@ class TestOne(BaseClass):
 
         confirmPage.getDropdownIndia().click()  # Click on the 'India' link
         
+        confirmPage.getCheckBox().click()
+
         confirmPage.getPurchaseButton().click()
 
-        # Click on the submit button to complete the purchase process
-        self.driver.find_element(By.CSS_SELECTOR, "input[type='submit']").click()  # Click the submit button
+        # # Click on the submit button to complete the purchase process
+        # self.driver.find_element(By.CSS_SELECTOR, "input[type='submit']").click()  # Click the submit button
 
         # Capture the success message displayed after submission
         success_message = self.driver.find_element(By.CLASS_NAME, "alert-success").text  # Capture success message text
