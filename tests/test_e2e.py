@@ -11,6 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from pageObjects.ShopPage import ShopPage
 from pageObjects.HomePage import HomePage
+from pageObjects.ConfirmPage import ConfirmPage
 from utilities.BaseClass import BaseClass
 
 #@pytest.mark.fixture("setup") <-- Not needed because setup is already defined in parent class BaseClass
@@ -54,15 +55,19 @@ class TestOne(BaseClass):
         shopPage.shopCheckoutItems().click()  # Click the 'Checkout' button using the ShopPage object
         shopPage.cartCheckoutItems().click()  # Click the 'Cart Checkout' button using the ShopPage object
 
+        confirmPage = ConfirmPage(self.driver)
+        confirmPage.getDeliveryLocation().send_keys("Ind")  # Type 'Ind' in the country search field
+
         # Enter "Ind" in the country input field for the country search
-        self.driver.find_element(By.ID, "country").send_keys("Ind")  # Type 'Ind' in the country search field
+        # self.driver.find_element(By.ID, "country").send_keys("Ind")  # Type 'Ind' in the country search field
 
         # Wait until the element with link text "India" is present in the dropdown
         wait = WebDriverWait(self.driver, 10)  # Wait for up to 10 seconds
         wait.until(EC.presence_of_element_located((By.LINK_TEXT, "India")))  # Wait for the 'India' link to appear
-
+        
         # Click on the element with link text "India" from the suggestions
         self.driver.find_element(By.LINK_TEXT, "India").click()  # Click on the 'India' link
+        
 
         # Click on the checkbox to agree with terms and conditions
         self.driver.find_element(By.XPATH, "//div[@class='checkbox checkbox-primary']").click()  # Click the checkbox
