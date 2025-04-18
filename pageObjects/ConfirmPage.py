@@ -28,8 +28,3 @@ class ConfirmPage:
     
     def getSuccessMessage(self):
         return self.driver.find_element(*ConfirmPage.success)
-
-
-    
-
-    
