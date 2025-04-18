@@ -9,6 +9,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from pageObjects.ShopPage import ShopPage
 from pageObjects.HomePage import HomePage
 from utilities.BaseClass import BaseClass
 
@@ -37,28 +38,23 @@ class TestOne(BaseClass):
         homePage = HomePage(self.driver)
         homePage.shopItems().click()  # Click on the 'shop' link using the HomePage object
 
-        # Find the element using CSS selector and click on the "Shop" link
-        self.driver.find_element(By.CSS_SELECTOR, "a[href='/angularpractice/shop']").click()  # Click on the 'shop' link
+        shopPage = ShopPage(self.driver)
+        cards = shopPage.getCardTitles()  # Get the list of product cards on the checkout page
 
-        # Collect all the product cards on the page
-        cards = self.driver.find_elements(By.XPATH, "//div[@class='card h-100']")  # Find all product cards on the page
-
+        i = -1
         # Iterate through the cards to find the one with the name "Blackberry"
         for card in cards:
+            i = i + 1
             # Get the name of the product on the card
-            card_name = card.find_element(By.XPATH, "div/h4/a").text  # Get the product name text
-            print(card_name)  # Print the card name to the console
+            cardText = card.text  # Extract the text from the card element
 
-            if card_name == "Blackberry":  # Check if the card is the one with name "Blackberry"
-                # Click the "Add to Cart" button on the Blackberry card
-                card.find_element(By.XPATH, "div/button").click()  # Click the button to add Blackberry to cart
-                break  # Exit the loop once the Blackberry is added to the cart
+            if cardText == "Blackberry":  # Check if the card is the one with name "Blackberry"
+                shopPage.getCardFooter()[i].click()
 
-        # Click on the "Checkout" button to proceed to checkout
-        self.driver.find_element(By.XPATH, "//a[@class='nav-link btn btn-primary']").click()  # Click the 'Checkout' button
+        shopPage.shopCheckoutItems().click()  # Click the 'Checkout' button using the ShopPage object
 
-        # Click on the "Checkout" button again on the next page
-        self.driver.find_element(By.XPATH, "//button[@class='btn btn-success']").click()  # Click the final 'Checkout' button
+        # shopPage.checkoutItems().click()  # Click the 'Checkout' button using the CheckoutPage object
+        self.driver.find_element(By.XPATH, "//button[@class='btn btn-success']").click()
 
         # Enter "Ind" in the country input field for the country search
         self.driver.find_element(By.ID, "country").send_keys("Ind")  # Type 'Ind' in the country search field
