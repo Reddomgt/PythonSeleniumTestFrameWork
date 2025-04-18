@@ -15,7 +15,6 @@ This is a Python-based Selenium testing framework designed for automating web ap
 
 ## Usage
 
-```markdown
 This repository provides a robust Selenium testing framework built with Python. It includes the following key functionalities:
 
 - Browser invocation and setup using command-line options.
@@ -24,4 +23,3 @@ This repository provides a robust Selenium testing framework built with Python. 
 - Data-driven testing with parameterized datasets.
 - Logging integration for better traceability of test execution.
 - HTML report generation for detailed test results.
-```
